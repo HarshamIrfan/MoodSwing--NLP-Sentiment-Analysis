@@ -3,132 +3,183 @@ from roast_engine import smart_sentiment_roast
 from compliment_engine import sweet_sentiment_compliment
 import time
 
-# --- Page Setup ---
-st.set_page_config(page_title="MoodSwing", page_icon="🌀", layout="wide")
+# --------------------------------------------------
+# Page Configuration
+# --------------------------------------------------
 
-# --- Session State for History ---
+st.set_page_config(
+    page_title="MoodSwing",
+    page_icon="🌀",
+    layout="centered",
+)
+
+# --------------------------------------------------
+# Session State
+# --------------------------------------------------
+
 if "history" not in st.session_state:
     st.session_state.history = []
 
-# --- Theme Toggle ---
-theme = st.sidebar.selectbox("🌓 Theme", ["🌚 Dark", "🌞 Light"])
+# --------------------------------------------------
+# Custom Styling
+# --------------------------------------------------
 
-if theme == "🌞 Light":
-    bg_color = "linear-gradient(135deg, #fef6e4, #fce1e4, #f7cdef, #eebbee, #dcb4eb)"
-    container_color = "rgba(255, 255, 255, 0.95)"
-    text_color = "#1e1e1e"
-    button_color = "#f7cdef"
-else:
-    bg_color = "linear-gradient(135deg, #1e1e2f, #2c2b3c)"
-    container_color = "rgba(34, 34, 34, 0.95)"
-    text_color = "#E6E6E6"
-    button_color = "#3a3a5c"
-
-# --- Custom Styling ---
 st.markdown(
-    f"""
+    """
 <style>
-.stApp {{
-    background: {bg_color};
-    background-attachment: fixed;
-    background-size: cover;
-}}
 
-.block-container {{
-    max-width: 900px;
-    background: {container_color};
-    padding: 2.8rem;
-    border-radius: 18px;
-    margin-top: 2rem;
-    box-shadow: 0 12px 30px rgba(0,0,0,.18);
-}}
+/* Main content */
 
-.title-text {{
+.block-container{
+    max-width:850px;
+    padding-top:2rem;
+    padding-bottom:2rem;
+}
+
+/* Hero */
+
+.title{
     text-align:center;
     font-size:3rem;
     font-weight:800;
     color:#CDB4DB;
     margin-bottom:0.2rem;
-}}
+}
 
-.subtitle-text {{
+.subtitle{
     text-align:center;
     font-size:1.05rem;
-    color:{text_color};
+    opacity:0.85;
     margin-bottom:2rem;
-}}
+}
 
-h1,h2,h3,h4,h5,h6,p,span,label,div {{
-    color:{text_color} !important;
-}}
+/* Buttons */
 
-section[data-testid="stSidebar"] * {{
-    color:{text_color} !important;
-}}
-
-.stTextInput input {{
-    border-radius:10px;
-    color:{text_color} !important;
-    background:{container_color} !important;
-}}
-
-.stButton>button {{
+.stButton > button{
     width:100%;
-    border:none;
-    border-radius:12px;
-    padding:.75rem;
+    border-radius:10px;
     font-weight:700;
-    background:{button_color};
-    color:{text_color};
-    transition:.2s;
-}}
+    padding:0.75rem;
+}
 
-.stButton>button:hover {{
-    transform:translateY(-1px);
-    opacity:.95;
-}}
+/* Inputs */
 
-div[role="radiogroup"] {{
-    padding:0.5rem 0;
-}}
+.stTextInput input{
+    border-radius:10px;
+}
+
+textarea{
+    border-radius:10px;
+}
+
+/* History card */
+
+.history-card{
+    border:1px solid rgba(128,128,128,.20);
+    border-radius:12px;
+    padding:1rem;
+    margin-bottom:1rem;
+}
+
+.footer{
+    text-align:center;
+    opacity:.75;
+    margin-top:2rem;
+    font-size:.9rem;
+}
+
 </style>
 """,
-    unsafe_allow_html=True
-)
-
-# --- Sidebar ---
-with st.sidebar:
-    st.header("🧭 How It Works")
-    st.markdown("""
-    1. Choose your **vibe**: roast or compliment 🔥🌸
-    2. Adjust your **mood slider** 😢 → 😐 → 😊
-    3. Type your thoughts below ✏️
-    4. Click **Generate Response** 🎭
-
-    ---
-    🌀 **MoodSwing** is an NLP-powered sass & sweetness bot for your emotional rollercoaster.
-
-    💡 Tip: Try negative mood in compliment mode... or vice versa 😈
-
-    🧠 Powered by TextBlob, Streamlit, and late-night debugging.
-    """)
-    st.markdown("👨‍💻 Created by [HarshamIrfan](https://github.com/HarshamIrfan)")
-
-# --- Main Title ---
-st.markdown("<div class='title-text'>🌀 MoodSwing</div>", unsafe_allow_html=True)
-st.markdown(
-    f"<div class='subtitle-text'><strong>Your Sass or Sweetness Bot</strong><br>Analyze the sentiment of your text and receive either a playful roast or a thoughtful compliment.</div>",
     unsafe_allow_html=True,
 )
 
-# --- Mode Selection ---
-mode = st.radio("\nChoose your mode:", ["🔥 Roast Me", "🌸 Compliment Me"], horizontal=True)
+# --------------------------------------------------
+# Sidebar
+# --------------------------------------------------
 
-# --- Mood Slider ---
-mood = st.slider("Mood Override", -1.0, 1.0, 0.0, step=0.1, help="Override the sentiment detection with your own mood")
+with st.sidebar:
 
-# --- User Input ---
-user_input = st.text_input("💬 Tell MoodSwing what\'s on your mind...")
+    st.header("🧭 How It Works")
+
+    st.markdown(
+        """
+1. Choose **Roast** or **Compliment**
+
+2. Adjust the **Mood Override** slider
+
+3. Enter your message
+
+4. Click **Generate Response**
+
+---
+
+🌀 **MoodSwing** analyzes the sentiment of your text and responds with either a playful roast or a thoughtful compliment.
+
+💡 Try different mood values to see how the response changes.
+
+🧠 Built with **TextBlob** and **Streamlit**.
+
+---
+👨‍💻 Created by **Harsham Irfan**
+"""
+    )
+
+# --------------------------------------------------
+# Hero
+# --------------------------------------------------
+
+st.markdown(
+    """
+<div class="title">
+🌀 MoodSwing
+</div>
+""",
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    """
+<div class="subtitle">
+<b>Your Sass or Sweetness Bot</b><br>
+Analyze the sentiment behind your text and receive either a playful roast or a thoughtful compliment.
+</div>
+""",
+    unsafe_allow_html=True,
+)
+
+# --------------------------------------------------
+# Interaction Area
+# --------------------------------------------------
+
+st.markdown("### 🎭 Choose Your Experience")
+
+mode = st.radio(
+    "",
+    ["🔥 Roast Me", "🌸 Compliment Me"],
+    horizontal=True,
+)
+
+st.markdown("")
+
+mood = st.slider(
+    "Mood Override",
+    min_value=-1.0,
+    max_value=1.0,
+    value=0.0,
+    step=0.1,
+    help="Override the detected sentiment with your preferred mood."
+)
+
+user_input = st.text_area(
+    "💬 What's on your mind?",
+    placeholder="Type a message, thought, confession, or anything you'd like MoodSwing to react to...",
+    height=140,
+)
+
+generate = st.button(
+    "✨ Generate Response",
+    use_container_width=True,
+)
 
 # --- Response Generation ---
 def typewriter_effect(text, delay=0.03):
@@ -137,14 +188,18 @@ def typewriter_effect(text, delay=0.03):
     placeholder = st.empty()
     for char in text:
         message += char
-        placeholder.markdown(f"```\n{message}\n```")
+        placeholder.info(message)
         time.sleep(delay)
 
-if st.button("Generate Response 🎭"):
+if generate:
     if mode == "🔥 Roast Me":
         response = smart_sentiment_roast(user_input, override_sentiment=mood)
-        st.markdown(f"### 🔥 Your Roast:")
-        typewriter_effect(response)
+        st.markdown("## 🔥 Roast")
+
+        response_container = st.container()
+
+        with response_container:
+           typewriter_effect(response)
 
         # Add to history
         st.session_state.history.append(("Roast", mood, user_input, response))
@@ -159,8 +214,12 @@ if st.button("Generate Response 🎭"):
 
     else:
         response = sweet_sentiment_compliment(user_input, override_sentiment=mood)
-        st.markdown(f"### 🌸 Your Compliment:")
-        typewriter_effect(response)
+        st.markdown("## 🌸 Compliment")
+
+        response_container = st.container()
+
+        with response_container:
+           typewriter_effect(response)
 
         # Add to history
         st.session_state.history.append(("Compliment", mood, user_input, response))
@@ -177,11 +236,44 @@ if st.button("Generate Response 🎭"):
 st.markdown("---")
 
 # --- History Log ---
-if st.session_state.history:
-    st.markdown("### 📜 Interaction History")
-    for i, (mtype, mood, user_text, result) in enumerate(reversed(st.session_state.history)):
-        st.markdown(f"**{mtype}** | Mood: `{mood:+.2f}` | Input: _{user_text}_")
-        st.markdown(f"\> {result}")
-        st.markdown("---")
+st.markdown("---")
 
-st.caption("🧠 Powered by TextBlob | ✨ Designed with Streamlit | ☕ Fuelled by caffeine")
+if st.session_state.history:
+
+    st.markdown("## 📜 Interaction History")
+
+    for mtype, mood, user_text, result in reversed(st.session_state.history):
+
+        st.markdown(
+            f"""
+<div class="history-card">
+
+### {"🔥 Roast" if mtype=="Roast" else "🌸 Compliment"}
+
+**Mood Override:** `{mood:+.2f}`
+
+**You**
+
+> {user_text}
+
+**MoodSwing**
+
+> {result}
+
+</div>
+""",
+            unsafe_allow_html=True,
+        )
+
+st.markdown(
+    """
+<div class="footer">
+
+🧠 Powered by TextBlob • Built with Streamlit
+
+</div>
+""",
+    unsafe_allow_html=True,
+)
+
+
