@@ -20,7 +20,7 @@ MoodSwing is an interactive sentiment analysis application that classifies user 
 
 # 🔗 Live Demo
 
-**https://YOUR-RENDER-URL.onrender.com**
+**https://nlp-sentiment-analysis-roastme.onrender.com**
 
 ---
 
