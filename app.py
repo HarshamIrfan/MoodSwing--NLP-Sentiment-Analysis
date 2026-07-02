@@ -4,7 +4,7 @@ from compliment_engine import sweet_sentiment_compliment
 import time
 
 # --- Page Setup ---
-st.set_page_config(page_title="MoodSwing 🤖", page_icon="🌀", layout="centered")
+st.set_page_config(page_title="MoodSwing", page_icon="🌀", layout="wide")
 
 # --- Session State for History ---
 if "history" not in st.session_state:
@@ -27,46 +27,72 @@ else:
 # --- Custom Styling ---
 st.markdown(
     f"""
-    <style>
-    .stApp {{
-        background: {bg_color};
-        background-attachment: fixed;
-        background-size: cover;
-        color: {text_color};
-    }}
-    .block-container {{
-        background-color: {container_color};
-        padding: 3rem 2rem 3rem 2rem;
-        border-radius: 12px;
-        box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
-        margin-top: 3rem;
-    }}
-    .title-text {{
-        font-size: 2.7rem;
-        font-weight: 800;
-        text-align: center;
-        color: #CDB4DB;
-        font-family: 'Segoe UI', sans-serif;
-        padding-bottom: 1rem;
-    }}
-    h3, h4, h5 {{
-        color: {text_color};
-    }}
-    .stButton > button {{
-        background-color: {button_color};
-        color: {text_color};
-        font-weight: bold;
-        border-radius: 8px;
-        padding: 0.6rem 1.2rem;
-        border: none;
-        box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-    }}
-    .stButton > button:hover {{
-        opacity: 0.9;
-        transform: scale(1.02);
-    }}
-    </style>
-    """,
+<style>
+.stApp {{
+    background: {bg_color};
+    background-attachment: fixed;
+    background-size: cover;
+}}
+
+.block-container {{
+    max-width: 900px;
+    background: {container_color};
+    padding: 2.8rem;
+    border-radius: 18px;
+    margin-top: 2rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,.18);
+}}
+
+.title-text {{
+    text-align:center;
+    font-size:3rem;
+    font-weight:800;
+    color:#CDB4DB;
+    margin-bottom:0.2rem;
+}}
+
+.subtitle-text {{
+    text-align:center;
+    font-size:1.05rem;
+    color:{text_color};
+    margin-bottom:2rem;
+}}
+
+h1,h2,h3,h4,h5,h6,p,span,label,div {{
+    color:{text_color} !important;
+}}
+
+section[data-testid="stSidebar"] * {{
+    color:{text_color} !important;
+}}
+
+.stTextInput input {{
+    border-radius:10px;
+    color:{text_color} !important;
+    background:{container_color} !important;
+}}
+
+.stButton>button {{
+    width:100%;
+    border:none;
+    border-radius:12px;
+    padding:.75rem;
+    font-weight:700;
+    background:{button_color};
+    color:{text_color};
+    transition:.2s;
+}}
+
+.stButton>button:hover {{
+    transform:translateY(-1px);
+    opacity:.95;
+}}
+
+div[role="radiogroup"] {{
+    padding:0.5rem 0;
+}}
+</style>
+""",
     unsafe_allow_html=True
 )
 
@@ -89,8 +115,11 @@ with st.sidebar:
     st.markdown("👨‍💻 Created by [HarshamIrfan](https://github.com/HarshamIrfan)")
 
 # --- Main Title ---
-st.markdown("<div class='title-text'>🌀 MoodSwing: Your Sass or Sweetness Bot</div>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>Roasted or complimented... choose your fate. 😈✨</p>", unsafe_allow_html=True)
+st.markdown("<div class='title-text'>🌀 MoodSwing</div>", unsafe_allow_html=True)
+st.markdown(
+    f"<div class='subtitle-text'><strong>Your Sass or Sweetness Bot</strong><br>Analyze the sentiment of your text and receive either a playful roast or a thoughtful compliment.</div>",
+    unsafe_allow_html=True,
+)
 
 # --- Mode Selection ---
 mode = st.radio("\nChoose your mode:", ["🔥 Roast Me", "🌸 Compliment Me"], horizontal=True)
@@ -99,7 +128,7 @@ mode = st.radio("\nChoose your mode:", ["🔥 Roast Me", "🌸 Compliment Me"], 
 mood = st.slider("Mood Override", -1.0, 1.0, 0.0, step=0.1, help="Override the sentiment detection with your own mood")
 
 # --- User Input ---
-user_input = st.text_input("\n💬 Enter a message, thought, or confession:")
+user_input = st.text_input("💬 Tell MoodSwing what\'s on your mind...")
 
 # --- Response Generation ---
 def typewriter_effect(text, delay=0.03):
