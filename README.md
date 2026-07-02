@@ -1,45 +1,151 @@
-# 🌀 MoodSwing: NLP Sentiment Analysis 🤖
+<h1 align="center">MoodSwing</h1>
 
-**MoodSwing** is a fun and sassy NLP-powered web app that roasts or compliments users based on the sentiment of their input — or lets them override the mood with an emoji-style slider.
+<p align="center">
+Interactive NLP web application that analyzes text sentiment and responds with either a playful roast or a thoughtful compliment.
+</p>
 
-Built with [Streamlit](https://streamlit.io), deployed via [Render](https://render.com), and filled with developer-themed wit and warmth.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white">
+  <img src="https://img.shields.io/badge/Streamlit-App-FF4B4B?logo=streamlit&logoColor=white">
+  <img src="https://img.shields.io/badge/TextBlob-NLP-4B8BBE">
+  <img src="https://img.shields.io/badge/NLTK-Text%20Processing-76B900">
+  <img src="https://img.shields.io/badge/Render-Deployed-46E3B7">
+</p>
+
+MoodSwing is an interactive sentiment analysis application that classifies user input using TextBlob and generates either a playful roast or a thoughtful compliment. Users can also adjust a mood override slider to influence the style of the response.
+
+**Natural Language Processing • Streamlit • TextBlob**
 
 ---
 
-## 🌟 Features
+# 🔗 Live Demo
 
-- 🔥 **Roast Me Mode** – Get burned with sentiment-aware tech insults (all in good fun)
-- 🌸 **Compliment Me Mode** – Get praised for your inner glow (even when debugging)
-- 🎭 **Mood Slider** – Override sentiment with a 😢 → 😊 scale
-- 🌶️ **Intensity Control** – Choose how mild or savage the roast/compliment is
-- 🎞️ **GIF Reactions** – Dynamic images based on mood
-- 📜 **Built-in Roast & Compliment Bank** – Fully custom, developer-themed responses
+**https://YOUR-RENDER-URL.onrender.com**
 
 ---
 
-## 🚀 How to Run Locally
+# Preview
 
-1. Clone this repo:
+<p align="center">
+  <img src="assets/demo.gif" alt="MoodSwing Demo">
+</p>
 
-```bash
-git clone https://github.com/HarshamIrfan/NLP-Sentiment-Analysis---RoastMe.git
-cd NLP-Sentiment-Analysis---RoastMe
+---
+
+# Overview
+
+MoodSwing demonstrates a lightweight Natural Language Processing workflow through an interactive Streamlit application.
+
+Instead of only classifying sentiment, the application transforms the detected sentiment into humorous roasts or encouraging compliments using curated response banks. A mood override slider allows users to influence the generated response for a more interactive experience.
+
+The project focuses on presenting NLP concepts through an engaging web interface rather than building a production chatbot.
+
+---
+
+# Highlights
+
+- Sentiment analysis using TextBlob
+- Roast and Compliment modes
+- Mood override slider
+- Curated response banks
+- Interaction history
+- Interactive Streamlit interface
+- Deployed on Render
+
+---
+
+# Screenshots
+
+### Home
+
+Main application interface.
+
+![Home](assets/screenshots/hero.png)
+
+---
+
+### Roast Mode
+
+Example roast generated from user input.
+
+![Roast](assets/screenshots/roast.png)
+
+---
+
+### Compliment Mode
+
+Example compliment generated from user input.
+
+![Compliment](assets/screenshots/compliment.png)
+
+---
+
+### Interaction History
+
+Displays previous generated responses within the current session.
+
+![History](assets/screenshots/history.png)
+
+---
+
+# Technology Stack
+
+| Layer | Technology |
+|--------|------------|
+| Language | Python |
+| NLP | TextBlob |
+| Text Processing | NLTK |
+| Web Framework | Streamlit |
+| UI | HTML/CSS (Streamlit Markdown & Custom Styling) |
+| Deployment | Render |
+
+---
+
+# Project Structure
+
+```text
+.
+├── assets/
+│   ├── demo.gif
+│   └── screenshots/
+│       ├── hero.png
+│       ├── roast.png
+│       ├── compliment.png
+│       └── history.png
+├── app.py
+├── roast_engine.py
+├── compliment_engine.py
+├── roast_bank.py
+├── compliment_bank.py
+├── requirements.txt
+└── README.md
 ```
 
-2. Install dependencies:
+---
+
+# Getting Started
+
+## Clone the repository
+
+```bash
+git clone https://github.com/HarshamIrfan/MoodSwing.git
+
+cd MoodSwing
+```
+
+## Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Download NLTK data:
+## Download TextBlob corpora
 
-```python
-import nltk
-nltk.download('punkt')
+```bash
+python -m textblob.download_corpora
 ```
 
-4. Run the app:
+## Run the application
 
 ```bash
 streamlit run app.py
@@ -47,51 +153,33 @@ streamlit run app.py
 
 ---
 
-## 🌐 Live Demo
+# How It Works
 
-> 🔗 [Visit the deployed app on Render](https://your-render-url-here.com)  
-(Replace this with your actual URL after deployment)
-
----
-
-## 🧠 Technologies Used
-
-- Python 3.11
-- Streamlit
-- TextBlob (for sentiment analysis)
-- NLTK
-- GitHub + Render for deployment
+1. Enter a message or thought.
+2. Select either Roast or Compliment mode.
+3. Optionally adjust the Mood Override slider.
+4. Generate a response based on the detected sentiment and selected mood.
 
 ---
 
-## 📁 Project Structure
+# Future Improvements
 
-```
-├── app.py                     # Main Streamlit app UI
-├── roast_engine.py           # Sentiment-based roast logic
-├── compliment_engine.py      # Sentiment-based compliment logic
-├── roast_bank.py             # Categorized roast lists
-├── compliment_bank.py        # Categorized compliment lists
-├── requirements.txt          # All dependencies
-└── assets/                   # Optional GIFs/images (if local)
-```
+- Support additional sentiment analysis models
+- Add multiple roast and compliment personalities
+- Export interaction history
+- Custom response themes
+- Multi-language support
 
 ---
 
-## 🙌 Acknowledgments
+# Author
 
-- Made as an assignment during ML Training conducted.
-- GIFs sourced from [Tenor](https://tenor.com/) for extra spice
+**Harsham Irfan Bhat**
 
----
+📧 harshamirfan@gmail.com
 
-## 👨‍💻 Author
-
-**Harsham Irfan**  
-GitHub: [@HarshamIrfan](https://github.com/HarshamIrfan)
+💼 https://www.linkedin.com/in/harsham-irfan-bhat/
 
 ---
 
-## 🪄 License
-
-MIT License – use it, remix it, deploy it, just give credit. 
+If you found this project useful, consider giving the repository a ⭐.
